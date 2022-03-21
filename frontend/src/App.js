@@ -2,35 +2,17 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import UserList from './components/User.js';
+import ProjectList from './components/Projects.js';
 import axios from 'axios'
 
 class App extends React.Component {
-   constructor(props) {
-       super(props)
-       this.state = {
-           'users': []
-       }
-   }
-
-//   componentDidMount() {
-//       const users = [
-//           {
-//               'first_name': 'Фёдор',
-//               'last_name': 'Достоевский',
-//               'user_name': 'FedDostoevsky'
-//           },
-//           {
-//               'first_name': 'Александр',
-//               'last_name': 'Грин',
-//               'user_name': 'GreenAlex'
-//           },
-//       ]
-//       this.setState(
-//           {
-//               'users': users
-//           }
-//       )
-//   }
+    constructor(props) {
+        super(props)
+        this.state = {
+        'users': [],
+        'projects': []
+        }
+    }
 
 componentDidMount() {
    axios.get('http://127.0.0.1:8000/api/users/')
@@ -48,6 +30,27 @@ componentDidMount() {
        return (
            <div>
                <UserList users={this.state.users} />
+           </div>
+       )
+   }
+
+
+componentDidMount() {
+   axios.get('http://127.0.0.1:8000/api/projects/')
+       .then(response => {
+           const projects = response.data.results
+               this.setState(
+               {
+                   'projects': projects
+               }
+           )
+       }).catch(error => console.log(error))
+}
+
+   render () {
+       return (
+           <div>
+               <ProjectList projects={this.state.projects} />
            </div>
        )
    }

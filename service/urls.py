@@ -15,17 +15,34 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework.renderers import JSONRenderer
 from rest_framework.routers import DefaultRouter
+from rest_framework.generics import UpdateAPIView
+
+import todo
+from todo.models import Project
+from todo.serializers import ProjectModelSerializer
+from todo.views import ProjectModelViewSet, ToDoModelViewSet, ProjectKwargsFilterView
+from users import views
 from users.views import UserModelViewSet
-from todo.views import ProjectModelViewSet, ToDoModelViewSet
+
+
+class ArticleUpdateAPIView(UpdateAPIView):
+    renderer_classes = [JSONRenderer]
+    queryset = Project.objects.all()
+    serializer_class = ProjectModelSerializer
+
 
 router = DefaultRouter()
 router.register('users', UserModelViewSet)
 router.register('projects', ProjectModelViewSet)
 router.register('ToDo', ToDoModelViewSet)
+router.register('base', views.UserCustomViewSet, basename='user')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-user/', include('rest_framework.urls', namespace='rest_framework')),
     path('api/', include(router.urls)),
+    path('filters/kwargs/<str:name>/', todo.views.ProjectKwargsFilterView.as_view()),
+
 ]
