@@ -3,58 +3,64 @@ import logo from './logo.svg';
 import './App.css';
 import UserList from './components/User.js';
 import ProjectList from './components/Projects.js';
+import ToDoList from './components/ToDo.js';
+import UserProjectList from './components/UserProject.js'
 import axios from 'axios'
+import {BrowserRouter, Route, Routes, Link, Navigate } from 'react-router-dom'
+
+const NotFound404 = ({ location }) => {
+    return (
+        <div>
+            <h1>Страница по адресу '{location.pathname}' не найдена</h1>
+        </div>
+    )
+}
 
 class App extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
         'users': [],
-        'projects': []
+        'projects': [],
+        'todos': []
         }
     }
 
-componentDidMount() {
-   axios.get('http://127.0.0.1:8000/api/users/')
-       .then(response => {
-           const users = response.data
-               this.setState(
-               {
-                   'users': users
-               }
-           )
-       }).catch(error => console.log(error))
+    render() {
+        return (
+            <div className="App">
+                <BrowserRouter>
+                <nav>
+                    <ul>
+                        <li><Link to='/'>Projects</Link></li>
+                        <li><Link to='/users'>Users</Link></li>
+                        <li><Link to='/todo'>ToDo</Link></li>
+                    </ul>
+                </nav>
+                    <Routes>
+                        <Route exact path='/todo' component={() => <ToDoList items={this.state.todos} />} />
+                        <Route exact path='/projects' component={() => <ProjectList items={this.state.projects} />} />
+
+                        <Route path="/projects/:id">
+                            <ProjectList projects={this.state.projects} />
+                        </Route>
+
+                       <Route path="/users/:id">
+                            <UserProjectList items={this.state.projects} />
+                        </Route>
+
+                        <Navigate from='/users' to='/' />
+                        <Route component={NotFound404} />
+                    </Routes>
+
+                </BrowserRouter>
+
+            </div>
+
+        )
+    }
 }
 
-   render () {
-       return (
-           <div>
-               <UserList users={this.state.users} />
-           </div>
-       )
-   }
-
-
-componentDidMount() {
-   axios.get('http://127.0.0.1:8000/api/projects/')
-       .then(response => {
-           const projects = response.data.results
-               this.setState(
-               {
-                   'projects': projects
-               }
-           )
-       }).catch(error => console.log(error))
-}
-
-   render () {
-       return (
-           <div>
-               <ProjectList projects={this.state.projects} />
-           </div>
-       )
-   }
-}
 
 
 export default App;

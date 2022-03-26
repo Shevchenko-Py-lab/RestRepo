@@ -1,5 +1,9 @@
 {
   "dependencies": {
-    "axios": "^0.26.0"
+    "axios": "^0.26.0",
+    "react-router-dom": "^6.2.2"
+  },
+  "devDependencies": {
+    "eslint-plugin-react-hooks": "^4.3.0"
   }
 }

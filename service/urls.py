@@ -36,7 +36,7 @@ class ArticleUpdateAPIView(UpdateAPIView):
 router = DefaultRouter()
 router.register('users', UserModelViewSet)
 router.register('projects', ProjectModelViewSet)
-router.register('ToDo', ToDoModelViewSet)
+router.register('todo', ToDoModelViewSet)
 router.register('base', views.UserCustomViewSet, basename='user')
 
 urlpatterns = [
