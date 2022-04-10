@@ -11,14 +11,14 @@ class Project(models.Model):
     project_name = models.CharField(max_length=64)
     project_priority = models.CharField(max_length=64)
     project_repo = models.CharField(max_length=64, blank=True)
-    user_responsible = models.ManyToManyField(User)
+    user_responsible = models.ManyToManyField(User, related_name='user_responsible')
 
 
 class ToDo(models.Model):
     uid = models.UUIDField(primary_key=True,
                            default=uuid4)
     task_id = models.ForeignKey(Project, on_delete=models.CASCADE)
-    users_responsible = models.ManyToManyField(User)
+    users_responsible = models.ManyToManyField(User, related_name='users_responsible')
     task_text = models.CharField(max_length=1024)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

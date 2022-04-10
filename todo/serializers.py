@@ -1,11 +1,14 @@
+from rest_framework import serializers
+from rest_framework.relations import PrimaryKeyRelatedField
 from rest_framework.serializers import HyperlinkedModelSerializer
 
-from users.serializers import UserSerializer
+from users.models import User
+from users.serializers import UserSerializer, UserModelSerializer
 from .models import Project, ToDo
 
 
-class ProjectModelSerializer(HyperlinkedModelSerializer):
-    user_responsible = UserSerializer(many=True)
+class ProjectModelSerializer(serializers.ModelSerializer):
+    user_responsible = UserSerializer(many=True, queryset=User.objects.all())
 
     class Meta:
         model = Project
@@ -13,7 +16,7 @@ class ProjectModelSerializer(HyperlinkedModelSerializer):
 
 
 class ToDoModelSerializer(HyperlinkedModelSerializer):
-    users_responsible = UserSerializer(many=True)
+    users_responsible = UserSerializer(many=True, queryset=User.objects.all())
 
     class Meta:
         model = ToDo

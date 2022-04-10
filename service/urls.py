@@ -22,9 +22,9 @@ from rest_framework.generics import UpdateAPIView
 import todo
 from todo.models import Project
 from todo.serializers import ProjectModelSerializer
-from todo.views import ProjectModelViewSet, ToDoModelViewSet, ProjectKwargsFilterView
-from users import views
-from users.views import UserModelViewSet
+from todo.views import ProjectModelViewSet, ToDoModelViewSet
+from users.views import UserModelViewSet, UserCustomViewSet
+from rest_framework.authtoken import views
 
 
 class ArticleUpdateAPIView(UpdateAPIView):
@@ -37,10 +37,11 @@ router = DefaultRouter()
 router.register('users', UserModelViewSet)
 router.register('projects', ProjectModelViewSet)
 router.register('todo', ToDoModelViewSet)
-router.register('base', views.UserCustomViewSet, basename='user')
+# router.register('base', UserCustomViewSet, basename='user')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api-token-auth/', views.obtain_auth_token),
     path('api-user/', include('rest_framework.urls', namespace='rest_framework')),
     path('api/', include(router.urls)),
     path('filters/kwargs/<str:name>/', todo.views.ProjectKwargsFilterView.as_view()),

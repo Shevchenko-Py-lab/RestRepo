@@ -7,7 +7,8 @@ from django.contrib.auth.models import AbstractUser
 # class User(AbstractUser):
 #     uid = models.UUIDField(primary_key=True, default=uuid4)
 
-class User(models.Model):
+# class User(models.Model):
+class User(AbstractUser):
     uid = models.UUIDField(primary_key=True,
                            default=uuid4)
     user_name = models.CharField(max_length=64)
@@ -18,3 +19,15 @@ class User(models.Model):
 
     def __str__(self):
         return self.first_name + " " + self.last_name
+
+
+class Admin(User):
+    pass
+
+
+class Developer(User):
+    pass
+
+
+class ProductOwner(User):
+    pass

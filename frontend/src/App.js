@@ -38,8 +38,8 @@ class App extends React.Component {
                     </ul>
                 </nav>
                     <Routes>
-                        <Route exact path='/todo' component={() => <ToDoList items={this.state.todos} />} />
-                        <Route exact path='/projects' component={() => <ProjectList items={this.state.projects} />} />
+                        <Route path='/todo' element={() => <ToDoList items={this.state.todos} />} />
+                        <Route path='/projects' element={() => <ProjectList items={this.state.projects} />} />
 
                         <Route path="/projects/:id">
                             <ProjectList projects={this.state.projects} />
