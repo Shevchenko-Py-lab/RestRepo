@@ -1,7 +1,8 @@
 {
   "dependencies": {
-    "axios": "^0.26.0",
-    "react-router-dom": "^6.2.2"
+    "axios": "^0.26.1",
+    "react-router-dom": "^6.2.2",
+    "universal-cookie": "^4.0.4"
   },
   "devDependencies": {
     "eslint-plugin-react-hooks": "^4.3.0"

@@ -1,6 +1,5 @@
 import React from 'react'
 
-
 const ToDoItem = ({todo}) => {
    return (
        <tr>
@@ -12,6 +11,7 @@ const ToDoItem = ({todo}) => {
 }
 
 const ToDoList = ({todos}) => {
+
     return (
         <table>
             <thead>
