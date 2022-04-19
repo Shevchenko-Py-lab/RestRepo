@@ -19,15 +19,3 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.first_name + " " + self.last_name
-
-
-class Admin(User):
-    pass
-
-
-class Developer(User):
-    pass
-
-
-class ProductOwner(User):
-    pass

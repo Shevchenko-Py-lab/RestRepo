@@ -6,7 +6,7 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework import mixins, viewsets
 from rest_framework.decorators import action
 
-from .serializers import ProjectModelSerializer, ToDoModelSerializer
+from .serializers import ProjectModelSerializer, ToDoModelSerializer, ProjectModelSerializerBase
 
 from .filters import ProjectFilter
 from .models import Project, ToDo
@@ -24,6 +24,11 @@ class ProjectModelViewSet(ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectModelSerializer
     pagination_class = ProjectLimitOffsetPagination
+
+    def get_serializer_class(self):
+        if self.request.method in ['GET']:
+            return ProjectModelSerializer
+        return ProjectModelSerializerBase
 
 
 class ToDoModelViewSet(ModelViewSet):
