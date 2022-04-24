@@ -47,7 +47,7 @@ class ProjectKwargsFilterView(ListAPIView):
     serializer_class = ProjectModelSerializer
 
     def get_queryset(self):
-        project_name = self.kwargs['name']
+        project_name = self.kwargs['project_name']
         return Project.objects.filter(name__contains=project_name)
 
 
