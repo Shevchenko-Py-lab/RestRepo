@@ -43,12 +43,12 @@ class ProjectCustomViewSet(viewsets.ModelViewSet):
     serializer_class = ProjectModelSerializer
 
 
-class ProjectKwargsFilterView(ListAPIView):
-    serializer_class = ProjectModelSerializer
-
-    def get_queryset(self):
-        project_name = self.kwargs['project_name']
-        return Project.objects.filter(name__contains=project_name)
+# class ProjectKwargsFilterView(ListAPIView):
+#     serializer_class = ProjectModelSerializer
+#
+#     def get_queryset(self):
+#         project_name = self.kwargs['project_name']
+#         return Project.objects.filter(name__contains=project_name)
 
 
 class ToDoModelCustomViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, mixins.UpdateModelMixin,
