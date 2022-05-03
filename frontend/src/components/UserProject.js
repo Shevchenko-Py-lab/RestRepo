@@ -7,6 +7,7 @@ const ProjectItem = ({item}) => {
             <td>{item.id}</td>
             <td>{item.name}</td>
             <td>{item.user.user_name}</td>
+            <td><button type='button'>Delete</button></td>
         </tr>
     )
 }
@@ -22,6 +23,7 @@ const ProjectList = ({items}) => {
                 <th>ID</th>
                 <th>NAME</th>
                 <th>USER</th>
+                <th></th>
             </tr>
             {filtered_items.map((item) => <ProjectItem item={item} />)}
         </table>

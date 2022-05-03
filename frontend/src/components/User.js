@@ -9,6 +9,7 @@ const UserItem = ({user}) => {
            <td>{user.first_name}</td>
            <td>{user.last_name}</td>
            <td>{user.user_name}</td>
+           <td><button type='button'>Delete</button></td>
        </tr>
    )
 }
@@ -21,6 +22,7 @@ const UserList = ({users}) => {
                     <th>First name</th>
                     <th>Last Name</th>
                     <th>Username</th>
+                    <th></th>
                 </tr>
             </thead>
            {users.map((user) => <UserItem user={user} />)}

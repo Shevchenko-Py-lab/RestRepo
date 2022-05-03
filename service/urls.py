@@ -23,7 +23,6 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from graphene_django.views import GraphQLView
 
-import todo
 from todo.models import Project
 from todo.serializers import ProjectModelSerializer
 from todo.views import ProjectModelViewSet, ToDoModelViewSet
