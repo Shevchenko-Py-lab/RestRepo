@@ -21,8 +21,8 @@ from rest_framework.routers import DefaultRouter
 from rest_framework.generics import UpdateAPIView
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from graphene_django.views import GraphQLView
 
-import todo
 from todo.models import Project
 from todo.serializers import ProjectModelSerializer
 from todo.views import ProjectModelViewSet, ToDoModelViewSet
@@ -57,10 +57,11 @@ urlpatterns = [
     path('api-token-auth/', views.obtain_auth_token),
     path('api-user/', include('rest_framework.urls', namespace='rest_framework')),
     path('api/', include(router.urls)),
-    path('filters/kwargs/<str:name>/', todo.views.ProjectKwargsFilterView.as_view()),
+    # path('filters/kwargs/<str:name>/', todo.views.ProjectKwargsFilterView.as_view()),
     re_path(r'^api/(?P<version>[0-9]+)/users/$', UserModelViewSet.as_view()),
     re_path(r'^swagger(?P<format>\.json|\.yaml)$',
             schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path('graphql/', GraphQLView.as_view(graphiql=True)),
 ]
